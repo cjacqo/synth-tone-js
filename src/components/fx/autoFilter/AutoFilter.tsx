@@ -43,11 +43,11 @@ const AutoFilter: React.FC<AutoFilterProps> = ({ autoFilter }) => {
   useEffect(() => {
     if (autoFilterRef.current) {
       autoFilterRef.current.baseFrequency = baseFrequency.baseFrequency
-      autoFilterRef.current.depth.value = depth.depthValue
-      autoFilterRef.current.frequency.value = frequency.frequency
+      autoFilterRef.current.depth.rampTo(depth.depthValue, 0.1)
+      autoFilterRef.current.frequency.rampTo(frequency.frequency, 0.1)
       autoFilterRef.current.octaves = octave.octave
-      autoFilterRef.current.wet.value = wet.wetValue
-      autoFilterRef.current.filter.Q.value = q.q
+      autoFilterRef.current.wet.rampTo(wet.wetValue, 0.1)
+      autoFilterRef.current.filter.Q.rampTo(q.q, 0.1)
       autoFilterRef.current.filter.type = filterType.filterType as BiquadFilterType
       autoFilterRef.current.filter.rolloff = rolloff.rolloff as FilterRollOff
       autoFilterRef.current.type = `${wave.waveType}${wave.waveNumber}` as ToneOscillatorType
@@ -115,7 +115,7 @@ const AutoFilter: React.FC<AutoFilterProps> = ({ autoFilter }) => {
         setFrequency={handleSetBaseFrequency}
         frequencyType={baseFrequency.baseFrequencyType}
         setFrequencyType={baseFrequency.setBaseFrequencyType} />
-      <Control.DepthRange value={depth.depthValue} onChange={handleDepthChange} />
+      <Control.Range label='Depth' value={depth.depthValue} onChange={handleDepthChange} />
       {/**
        * This parameter is not the frequency of the sound itself but rather the frequency of the filter's modulation.
        * In other words, it controls how fast the filter's cutoff frequency oscillates around the BaseFrequency.
@@ -130,7 +130,7 @@ const AutoFilter: React.FC<AutoFilterProps> = ({ autoFilter }) => {
         frequencyType={frequency.frequencyType}
         setFrequencyType={frequency.setFrequencyType} />
       <Select.Octave value={octave.octave} onChange={handleOctaveChange} />
-      <Control.WetRange value={wet.wetValue} onChange={handleWetChange} />
+      <Control.Range label='Wet' value={wet.wetValue} onChange={handleWetChange} />
       <Control.FilterParams
         q={q.q} onQChange={handleQChange}
         filterType={filterType.filterType} onFilterTypeChange={handleFilterTypeChange}

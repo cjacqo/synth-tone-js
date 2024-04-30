@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSynth } from '../../hooks'
 import * as Tone from 'tone'
 import AutoFilter from './autoFilter/AutoFilter'
+import AutoPanner from './autoPanner/AutoPanner'
+import Freeverb from './freeVerb/FreeVerb'
 
 const FXChain: React.FC = () => {
   const { synth } = useSynth()
@@ -25,6 +27,12 @@ const FXChain: React.FC = () => {
     switch (type) {
       case 'AutoFilter':
         effect = new Tone.AutoFilter()
+        break
+      case 'AutoPanner':
+        effect = new Tone.AutoPanner()
+        break
+      case 'Freeverb':
+        effect = new Tone.Freeverb()
         break
       default:
         console.warn('Unkown effect type:', type)
@@ -52,9 +60,15 @@ const FXChain: React.FC = () => {
   return (
     <div>
       <button onClick={() => addEffect('AutoFilter')}>Add Auto Filter</button>
+      <button onClick={() => addEffect('AutoPanner')}>Add Auto Panner</button>
+      <button onClick={() => addEffect('Freeverb')}>Add Freeverb</button>
       {effects.map((effect, index) => (
         effect.node instanceof Tone.AutoFilter ?
-          <AutoFilter key={index} autoFilter={effect.node as Tone.AutoFilter} />
+          <AutoFilter key={index} autoFilter={effect.node as Tone.AutoFilter} /> :
+        effect.node instanceof Tone.AutoPanner ?
+          <AutoPanner key={index} autoPanner={effect.node as Tone.AutoPanner} /> :
+        effect.node instanceof Tone.Freeverb ?
+          <Freeverb key={index} freeVerb={effect.node as Tone.Freeverb} />
           : <p key={index}>Effect: {effect.type}</p>
       ))}
       <button onClick={start}>Play</button>
