@@ -4,6 +4,7 @@ import * as Tone from 'tone'
 import AutoFilter from './autoFilter/AutoFilter'
 import AutoPanner from './autoPanner/AutoPanner'
 import Freeverb from './freeVerb/FreeVerb'
+import FeedbackDelay from './feedbackDelay/FeedbackDelay'
 
 const FXChain: React.FC = () => {
   const { synth } = useSynth()
@@ -30,6 +31,9 @@ const FXChain: React.FC = () => {
         break
       case 'AutoPanner':
         effect = new Tone.AutoPanner()
+        break
+      case 'FeedbackDelay':
+        effect = new Tone.FeedbackDelay()
         break
       case 'Freeverb':
         effect = new Tone.Freeverb()
@@ -61,12 +65,15 @@ const FXChain: React.FC = () => {
     <div>
       <button onClick={() => addEffect('AutoFilter')}>Add Auto Filter</button>
       <button onClick={() => addEffect('AutoPanner')}>Add Auto Panner</button>
+      <button onClick={() => addEffect('FeedbackDelay')}>Add Feedback Delay</button>
       <button onClick={() => addEffect('Freeverb')}>Add Freeverb</button>
       {effects.map((effect, index) => (
         effect.node instanceof Tone.AutoFilter ?
           <AutoFilter key={index} autoFilter={effect.node as Tone.AutoFilter} /> :
         effect.node instanceof Tone.AutoPanner ?
           <AutoPanner key={index} autoPanner={effect.node as Tone.AutoPanner} /> :
+        effect.node instanceof Tone.FeedbackDelay ?
+          <FeedbackDelay key={index} feedbackDelay={effect.node as Tone.FeedbackDelay} /> :
         effect.node instanceof Tone.Freeverb ?
           <Freeverb key={index} freeVerb={effect.node as Tone.Freeverb} />
           : <p key={index}>Effect: {effect.type}</p>
