@@ -58,7 +58,6 @@ const FXChain: React.FC = () => {
       Tone.start()
       console.log('started')
     }
-    synth.triggerAttackRelease('C4', '1m')
   }
 
   return (

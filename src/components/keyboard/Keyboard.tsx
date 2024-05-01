@@ -1,12 +1,39 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { useSynth } from '../../hooks'
+import * as Tone from 'tone'
 import AudioKeys from 'audiokeys'
+
+interface AudioKeysEvent {
+  keyCode: number;
+  note: number;
+  frequency: number;
+  velocity: number;
+  isActive: boolean;
+}
 
 const Keyboard: React.FC = () => {
   const { synth } = useSynth()
 
-  console.log(AudioKeys)
+  const keyboard = new AudioKeys()
 
+  const debounce = <T extends (...args: any[]) => any>(func: T, delay: number): T => {
+    let timeout: ReturnType<typeof setTimeout>
+    return ((...args: Parameters<T>) => {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => func(...args), delay)
+    }) as T
+  }
+
+  Tone.Transport.start()
+  
+  const triggerNote = debounce((key: AudioKeysEvent) => {
+    const time = Tone.Transport.seconds + 0.1
+    synth.triggerAttackRelease(key.frequency, '8n', time)
+  }, 20)
+
+  keyboard.down(triggerNote)
+  
   return (
     <div>Keyboard</div>
   )
