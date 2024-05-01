@@ -6,7 +6,6 @@ import Control from '../controls/Control';
 
 interface SynthContextType {
   synth: Tone.Synth;
-  playNote: (note: string, duration: string) => void;
 }
 
 // Create the context
@@ -35,13 +34,8 @@ const SynthProvider: React.FC<SynthProviderProps> = ({ children }) => {
     }
   }, [attack, decay, sustain, release])
 
-  // WILL NOT NEED THIS HERE: CURRENTLY NOT USED
-  const playNote = (note: string, duration: string) => {
-    synthRef.current.triggerAttackRelease(note, duration)
-  }
-
   return (
-    <SynthContext.Provider value={{ synth: synthRef.current, playNote }}>
+    <SynthContext.Provider value={{ synth: synthRef.current }}>
       {/**
        * ADD SYNTH CONTROLS HERE: ADSR CONTROLS, VOLUME, WAVE TYPE, PORTAMENTO, DETUNE, ETC.
        */}
