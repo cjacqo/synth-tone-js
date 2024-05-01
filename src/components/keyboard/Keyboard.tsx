@@ -15,7 +15,9 @@ interface AudioKeysEvent {
 const Keyboard: React.FC = () => {
   const { synth } = useSynth()
 
-  const keyboard = new AudioKeys()
+  const keyboard = new AudioKeys({
+    rows: 1,
+  })
 
   const debounce = <T extends (...args: any[]) => any>(func: T, delay: number): T => {
     let timeout: ReturnType<typeof setTimeout>
@@ -28,9 +30,13 @@ const Keyboard: React.FC = () => {
   Tone.Transport.start()
   
   const triggerNote = debounce((key: AudioKeysEvent) => {
+    if (Tone.context.state !== 'running') {
+      Tone.start()
+      console.log('started')
+    }
     const time = Tone.Transport.seconds + 0.1
     synth.triggerAttackRelease(key.frequency, '8n', time)
-  }, 20)
+  }, 0)
 
   keyboard.down(triggerNote)
   

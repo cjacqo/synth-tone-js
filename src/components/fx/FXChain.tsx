@@ -53,13 +53,6 @@ const FXChain: React.FC = () => {
     setEffects(prev => prev.filter((_, index) => index !== effectIndex))
   }
 
-  const start = () => {
-    if (Tone.context.state !== 'running') {
-      Tone.start()
-      console.log('started')
-    }
-  }
-
   return (
     <div>
       <button onClick={() => addEffect('AutoFilter')}>Add Auto Filter</button>
@@ -77,7 +70,6 @@ const FXChain: React.FC = () => {
           <Freeverb key={index} freeVerb={effect.node as Tone.Freeverb} />
           : <p key={index}>Effect: {effect.type}</p>
       ))}
-      <button onClick={start}>Play</button>
     </div>
   )
 }
