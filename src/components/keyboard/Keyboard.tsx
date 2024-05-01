@@ -34,11 +34,16 @@ const Keyboard: React.FC = () => {
       Tone.start()
       console.log('started')
     }
-    const time = Tone.Transport.seconds + 0.1
-    synth.triggerAttackRelease(key.frequency, '8n', time)
+    const time = Tone.Transport.seconds
+    synth.triggerAttack(key.frequency, time)
   }, 0)
 
+  const releaseNote = () => {
+    synth.triggerRelease()
+  }
+
   keyboard.down(triggerNote)
+  keyboard.up(releaseNote)
   
   return (
     <div>Keyboard</div>
