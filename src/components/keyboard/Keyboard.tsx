@@ -2,6 +2,7 @@
 import React from 'react'
 import { useSynth } from '../../hooks'
 import * as Tone from 'tone'
+import * as THREE from 'three'
 import AudioKeys from 'audiokeys'
 
 interface AudioKeysEvent {
