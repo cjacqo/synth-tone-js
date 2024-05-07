@@ -4,6 +4,7 @@ import { useSynth } from '../../hooks'
 import * as Tone from 'tone'
 import AudioKeys from 'audiokeys'
 import PianoKey from './PianoKey'
+import Knob from '../knob/Knob'
 
 interface AudioKeysEvent {
   keyCode: number;
@@ -59,6 +60,13 @@ const Keyboard: React.FC = () => {
   return (
     <div className='keyboard'>
       {renderKeys()}
+      <Knob
+        degrees={180}
+        size={150}
+        min={1}
+        max={100}
+        value={0}
+        numTicks={125} />
     </div>
   )
 }
