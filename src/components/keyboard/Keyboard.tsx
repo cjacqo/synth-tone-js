@@ -46,7 +46,7 @@ const Keyboard: React.FC = () => {
   keyboard.down(triggerNote)
   keyboard.up(releaseNote)
   
-  const notes = ['c', 'db', 'd', 'eb', 'e', 'f', 'gb', 'g', 'ab', 'a', 'bb', 'b']
+  const notes = ['c', 'db', 'd', 'eb', 'e', 'f', 'gb', 'g', 'ab', 'a', 'bb', 'b', 'c', 'db', 'd', 'eb']
 
   const renderKeys = () => {
     return notes.map((note, index) => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { SubdivisionOptions } from '../../options/options';
+import React from 'react'
+import { SubdivisionOptions } from '../../options/options'
 
 interface SelectProps<T> {
   value: T;
