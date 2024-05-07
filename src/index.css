@@ -64,3 +64,34 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* KEYBOARD AND PIANO KEY */
+.keyboard {
+  display: flex;
+  flex-direction: row;
+}
+
+.key {
+  height: 300px;
+  width: 60px;
+  border: 2px solid #000000;
+}
+.key.white {
+  background-color: #FFFFFF;
+}
+.key.black {
+  background-color: #000000;
+}
+.key-text {
+  position: relative;
+  font-weight: 600;
+  font-size: 36px;
+  margin-top: 240px;
+  pointer-events: none;
+}
+.key.white .key-text {
+  color: #000000;
+}
+.key.black .key-text {
+  color: #FFFFFF;
+}

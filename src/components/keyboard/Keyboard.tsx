@@ -2,8 +2,8 @@
 import React from 'react'
 import { useSynth } from '../../hooks'
 import * as Tone from 'tone'
-import * as THREE from 'three'
 import AudioKeys from 'audiokeys'
+import PianoKey from './PianoKey'
 
 interface AudioKeysEvent {
   keyCode: number;
@@ -45,9 +45,11 @@ const Keyboard: React.FC = () => {
 
   keyboard.down(triggerNote)
   keyboard.up(releaseNote)
-  
+
   return (
-    <div>Keyboard</div>
+    <div className='keyboard'>
+      <PianoKey color='white' note='c' />
+    </div>
   )
 }
 
