@@ -45,10 +45,20 @@ const Keyboard: React.FC = () => {
 
   keyboard.down(triggerNote)
   keyboard.up(releaseNote)
+  
+  const notes = ['c', 'db', 'd', 'eb', 'e', 'f', 'gb', 'g', 'ab', 'a', 'bb', 'b']
+
+  const renderKeys = () => {
+    return notes.map((note, index) => {
+      return (
+        <PianoKey key={index} note={note} color={note.length == 2 ? 'black' : 'white'} />
+      )
+    })
+  }
 
   return (
     <div className='keyboard'>
-      <PianoKey color='white' note='c' />
+      {renderKeys()}
     </div>
   )
 }

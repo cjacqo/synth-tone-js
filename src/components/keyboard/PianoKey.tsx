@@ -9,7 +9,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ color, note }) => {
   return (
     <div className={`key ${color}`}>
       <div className='key-text'>
-        {note.toUpperCase()}
+        {note[0].toUpperCase() + note.slice(1).toLowerCase()}
       </div>
     </div>
   )
