@@ -28,7 +28,7 @@ const ADSR: React.FC<ADSRProps> = ({
   const scaledReleaseTime = releaseTime * pixelsPerSecond
 
   // Example conversion: These should be adjusted based on actual use-case
-  const attackPoint = { x: scaledAttackTime, y: scaleY - (sustainLevel * scaleY) }
+  const attackPoint = { x: scaledAttackTime, y: 0 }
   const decayPoint = { x: scaledAttackTime + scaledDecayTime, y: scaleY - (sustainLevel * scaleY) }
   const releasePoint = { x: scaledAttackTime + scaledDecayTime + scaledReleaseTime, y: scaleY }
 
@@ -88,13 +88,13 @@ const ADSR: React.FC<ADSRProps> = ({
         <line x1='0' y1={scaleY} x2={attackPoint.x} y2={attackPoint.y} stroke='black' />
         <line x1={attackPoint.x} y1={attackPoint.y} x2={decayPoint.x} y2={decayPoint.y} stroke='black' />
         <line x1={decayPoint.x} y1={decayPoint.y} x2={releasePoint.x} y2={releasePoint.y} stroke='black' />
-        <line x1={releasePoint.x} y1={releasePoint.y} x2={scaleX} y2={scaleY} stroke='black' />
+        <line x1={releasePoint.x} y1={releasePoint.y} x2={'100%'} y2={scaleY} stroke='black' />
 
         {/* Draggable points */}
         <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='red' onMouseDown={handleDrag(setAttackTime, 'attack', 'x', 0, 20)} />
         <rect x={decayPoint.x - 5} y={decayPoint.y - 5} width='10' height='10' fill='green' onMouseDown={handleDrag(setDecayTime, 'decay', 'x', 0, 20)} />
-        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width={decayPoint.x - attackPoint.x} height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 'sustain', 'y', 0, 1)} />
         <rect x={releasePoint.x - 5} y={releasePoint.y - 5} width='10' height='10' fill='orange' onMouseDown={handleDrag(setReleaseTime, 'release', 'x', 0, 20)} />
+        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='0' height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 'sustain', 'y', 0, 1)} />
       </svg>
     </div>
   )

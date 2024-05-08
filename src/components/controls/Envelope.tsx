@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Select from '../inputs/Select'
 import { EnvelopeCurve } from '../../options/options'
 import ADSR from './ADSR';
@@ -28,6 +28,10 @@ interface EnvelopeProps {
 
 const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
   const { attack, decay, sustain, release } = envelope
+
+  useEffect(() => {
+    console.log(`Attack: ${attack.time.attackTime}\nDecay: ${decay.time.decayTime}\nSustain: ${sustain.amount.sustainAmount}\nRelease: ${release.time.releaseTime}`)
+  }, [attack.time.attackTime, decay.time.decayTime, sustain.amount.sustainAmount, release.time.releaseTime])
   
   return (
     <>
