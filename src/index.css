@@ -143,3 +143,10 @@ button:focus-visible {
   background: #509eec;
   box-shadow: 0 0 3px 1px black;
 }
+
+/* ADSR CONTAINER */
+.adsr-container {
+  border: 1px solid black;
+  width: 50%;
+  margin: 0 auto;
+}

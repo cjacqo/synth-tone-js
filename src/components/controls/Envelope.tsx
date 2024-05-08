@@ -1,6 +1,7 @@
 import React from 'react'
 import Select from '../inputs/Select'
 import { EnvelopeCurve } from '../../options/options'
+import ADSR from './ADSR';
 
 interface EnvelopeParams {
   attack: {
@@ -30,6 +31,15 @@ const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
   
   return (
     <>
+      <ADSR
+        attackTime={attack.time.attackTime}
+        decayTime={decay.time.decayTime}
+        sustainLevel={sustain.amount.sustainAmount}
+        releaseTime={release.time.releaseTime}
+        setAttackTime={attack.time.setAttackTime}
+        setDecayTime={decay.time.setDecayTime}
+        setSustainLevel={sustain.amount.setSustainAmount}
+        setReleaseTime={release.time.setReleaseTime} />
       <Select.Number
         label='Attack'
         value={attack.time.attackTime}
