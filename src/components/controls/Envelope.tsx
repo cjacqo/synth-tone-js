@@ -46,12 +46,12 @@ const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
         setReleaseTime={release.time.setReleaseTime} />
       <Select.Number
         label='Attack'
-        value={attack.time.attackTime}
+        value={Math.round(attack.time.attackTime * 100) / 100}
         min={0} max={20} step={0.01}
         onChange={e => attack.time.setAttackTime(parseFloat(e.target.value))} />
       <Select.Number
         label='Decay'
-        value={decay.time.decayTime}
+        value={Math.round(decay.time.decayTime * 100) / 100}
         min={0} max={20} step={0.01}
         onChange={e => decay.time.setDecayTime(parseFloat(e.target.value))} />
       <Select.NormalizedRange
@@ -60,7 +60,7 @@ const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
         onChange={e => sustain.amount.setSustainAmount(parseFloat(e.target.value))} />
       <Select.Number
         label='Release'
-        value={release.time.releaseTime}
+        value={Math.round(release.time.releaseTime * 100) / 100}
         min={0} max={20} step={0.01}
         onChange={e => release.time.setReleaseTime(parseFloat(e.target.value))} />
     </>

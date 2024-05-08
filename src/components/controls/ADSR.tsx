@@ -46,7 +46,7 @@ const ADSR: React.FC<ADSRProps> = ({
 
   const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
-  const handleDrag = (setter: (value: number) => void, type: 'attack' | 'decay' | 'sustain' | 'release', segmentIndex: number, axis: 'x' | 'y', min: number, max: number) => {
+  const handleDrag = (setter: (value: number) => void, segmentIndex: number, axis: 'x' | 'y') => {
     return (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
       e.preventDefault()
 
@@ -54,20 +54,6 @@ const ADSR: React.FC<ADSRProps> = ({
         const newPos = getRelativePointerPosition(moveEvent)
         let newValue = (axis === 'x' ? newPos.x : scaleY - newPos.y) - segmentIndex * segmentWidth
         newValue = Math.max(0, Math.min(newValue / pixelsPerSecond, maxTime))
-
-        switch(type) {
-          case 'attack':
-            newValue = Math.min(newValue, decayTime - 1)
-            break
-          case 'decay':
-            newValue = Math.max(attackTime + 1, Math.min(newValue, releaseTime - 1))
-            break
-          case 'release':
-            newValue = Math.max(decayTime + 1, newValue)
-            break
-          default:
-            break
-        }
         
         setter(newValue)
       }
@@ -92,10 +78,10 @@ const ADSR: React.FC<ADSRProps> = ({
         <line x1={releasePoint.x} y1={releasePoint.y} x2={'100%'} y2={scaleY} stroke='black' />
 
         {/* Draggable points */}
-        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='red' onMouseDown={handleDrag(setAttackTime, 'attack', 0, 'x', 0, 20)} />
-        <rect x={decayPoint.x - 5} y={decayPoint.y - 5} width='10' height='10' fill='green' onMouseDown={handleDrag(setDecayTime, 'decay', 0, 'x', 0.15, 20)} />
-        <rect x={releasePoint.x - 5} y={releasePoint.y - 5} width='10' height='10' fill='orange' onMouseDown={handleDrag(setReleaseTime, 'release', 1, 'x', 0, 20)} />
-        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='0' height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 'sustain', 0, 'y', 0, 1)} />
+        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='red' onMouseDown={handleDrag(setAttackTime, 0, 'x')} />
+        <rect x={decayPoint.x - 5} y={decayPoint.y - 5} width='10' height='10' fill='green' onMouseDown={handleDrag(setDecayTime, 1, 'x')} />
+        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 0, 'y')} />
+        <rect x={releasePoint.x - 5} y={releasePoint.y - 5} width='10' height='10' fill='orange' onMouseDown={handleDrag(setReleaseTime, 2, 'x')} />
       </svg>
     </div>
   )
