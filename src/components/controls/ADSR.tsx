@@ -18,19 +18,20 @@ const ADSR: React.FC<ADSRProps> = ({
   const svgRef = useRef<SVGSVGElement>(null)
   
   // Convert envelope times and levels to screen coordinates
-  const scaleX = 400 // Total width of the SVG
+  const scaleX = 800 // Total width of the SVG
   const scaleY = 100 // Total height of the SVG
   const maxTime = 20 // Max time in seconds
-  const pixelsPerSecond = scaleX / maxTime
+  const segmentWidth = scaleX / 3
+  const pixelsPerSecond = segmentWidth / maxTime
 
-  const scaledAttackTime = attackTime * pixelsPerSecond
-  const scaledDecayTime = decayTime * pixelsPerSecond
-  const scaledReleaseTime = releaseTime * pixelsPerSecond
+  const scaledAttackTime = Math.min(attackTime * pixelsPerSecond, segmentWidth)
+  const scaledDecayTime = Math.min(decayTime * pixelsPerSecond, segmentWidth)
+  const scaledReleaseTime = Math.min(releaseTime * pixelsPerSecond, segmentWidth)
 
   // Example conversion: These should be adjusted based on actual use-case
   const attackPoint = { x: scaledAttackTime, y: 0 }
-  const decayPoint = { x: scaledAttackTime + scaledDecayTime, y: scaleY - (sustainLevel * scaleY) }
-  const releasePoint = { x: scaledAttackTime + scaledDecayTime + scaledReleaseTime, y: scaleY }
+  const decayPoint = { x: segmentWidth + scaledDecayTime, y: scaleY - (sustainLevel * scaleY) }
+  const releasePoint = { x: 2 * segmentWidth + scaledReleaseTime, y: scaleY - (sustainLevel * scaleY) }
 
   const getRelativePointerPosition = (e: MouseEvent) => {
     const svg = svgRef.current
@@ -45,14 +46,14 @@ const ADSR: React.FC<ADSRProps> = ({
 
   const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
-  const handleDrag = (setter: (value: number) => void, type: 'attack' | 'decay' | 'sustain' | 'release', axis: 'x' | 'y', min: number, max: number) => {
+  const handleDrag = (setter: (value: number) => void, type: 'attack' | 'decay' | 'sustain' | 'release', segmentIndex: number, axis: 'x' | 'y', min: number, max: number) => {
     return (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
       e.preventDefault()
 
       const moveHandler = (moveEvent: MouseEvent) => {
         const newPos = getRelativePointerPosition(moveEvent)
-        let newValue = axis === 'x' ? newPos.x / pixelsPerSecond : scaleY - newPos.y
-        newValue = clamp(newValue, min, max)
+        let newValue = (axis === 'x' ? newPos.x : scaleY - newPos.y) - segmentIndex * segmentWidth
+        newValue = Math.max(0, Math.min(newValue / pixelsPerSecond, maxTime))
 
         switch(type) {
           case 'attack':
@@ -91,10 +92,10 @@ const ADSR: React.FC<ADSRProps> = ({
         <line x1={releasePoint.x} y1={releasePoint.y} x2={'100%'} y2={scaleY} stroke='black' />
 
         {/* Draggable points */}
-        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='red' onMouseDown={handleDrag(setAttackTime, 'attack', 'x', 0, 20)} />
-        <rect x={decayPoint.x - 5} y={decayPoint.y - 5} width='10' height='10' fill='green' onMouseDown={handleDrag(setDecayTime, 'decay', 'x', 0, 20)} />
-        <rect x={releasePoint.x - 5} y={releasePoint.y - 5} width='10' height='10' fill='orange' onMouseDown={handleDrag(setReleaseTime, 'release', 'x', 0, 20)} />
-        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='0' height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 'sustain', 'y', 0, 1)} />
+        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='10' height='10' fill='red' onMouseDown={handleDrag(setAttackTime, 'attack', 0, 'x', 0, 20)} />
+        <rect x={decayPoint.x - 5} y={decayPoint.y - 5} width='10' height='10' fill='green' onMouseDown={handleDrag(setDecayTime, 'decay', 0, 'x', 0.15, 20)} />
+        <rect x={releasePoint.x - 5} y={releasePoint.y - 5} width='10' height='10' fill='orange' onMouseDown={handleDrag(setReleaseTime, 'release', 1, 'x', 0, 20)} />
+        <rect x={attackPoint.x - 5} y={attackPoint.y - 5} width='0' height='10' fill='blue' cursor='ns-resize' onMouseDown={handleDrag(setSustainLevel, 'sustain', 0, 'y', 0, 1)} />
       </svg>
     </div>
   )

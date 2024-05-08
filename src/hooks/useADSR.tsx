@@ -6,7 +6,7 @@ function useADSR() {
   const { curve: attackCurve, setCurveType: setAttackCurve } = useCurve()
 
   // Decay Params: Time (secs) and Curve
-  const { number: decayTime, setNumberValue: setDecayTime } = useNumber(1, 0, 20)
+  const { number: decayTime, setNumberValue: setDecayTime } = useNumber(1, 0.15, 20)
   const { curve: decayCurve, setCurveType: setDecayCurve } = useCurve()
 
   // Sustain Params: Normal Range
