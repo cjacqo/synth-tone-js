@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Select from '../inputs/Select'
 import { EnvelopeCurve } from '../../options/options'
 import ADSR from './ADSR';
@@ -28,10 +28,6 @@ interface EnvelopeProps {
 
 const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
   const { attack, decay, sustain, release } = envelope
-
-  useEffect(() => {
-    console.log(`Attack: ${attack.time.attackTime}\nDecay: ${decay.time.decayTime}\nSustain: ${sustain.amount.sustainAmount}\nRelease: ${release.time.releaseTime}`)
-  }, [attack.time.attackTime, decay.time.decayTime, sustain.amount.sustainAmount, release.time.releaseTime])
   
   return (
     <>
@@ -52,7 +48,7 @@ const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
       <Select.Number
         label='Decay'
         value={Math.round(decay.time.decayTime * 100) / 100}
-        min={0} max={20} step={0.01}
+        min={0.15} max={20} step={0.01}
         onChange={e => decay.time.setDecayTime(parseFloat(e.target.value))} />
       <Select.NormalizedRange
         label='Sustain'

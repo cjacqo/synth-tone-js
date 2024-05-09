@@ -19,7 +19,7 @@ const ADSR: React.FC<ADSRProps> = ({
   
   // Convert envelope times and levels to screen coordinates
   const scaleX = 800 // Total width of the SVG
-  const scaleY = 100 // Total height of the SVG
+  const scaleY = 200 // Total height of the SVG
   const maxTime = 20 // Max time in seconds
   const segmentWidth = scaleX / 3
   const pixelsPerSecond = segmentWidth / maxTime
