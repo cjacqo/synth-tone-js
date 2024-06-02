@@ -26,6 +26,7 @@ const Keyboard: React.FC = () => {
     return ((...args: Parameters<T>) => {
       clearTimeout(timeout)
       timeout = setTimeout(() => func(...args), delay)
+      Tone.Transport.cancel()
     }) as T
   }
 
@@ -37,6 +38,7 @@ const Keyboard: React.FC = () => {
       console.log('started')
     }
     const time = Tone.Transport.seconds
+    console.log(time)
     synth.triggerAttack(key.frequency, time)
   }, 0)
 

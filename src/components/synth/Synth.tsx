@@ -22,6 +22,7 @@ const SynthProvider: React.FC<SynthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (synthRef.current) {
+      console.log(`Attack: ${attack.time.attackTime}\nDecay: ${decay.time.decayTime}\nSustain: ${sustain.amount.sustainAmount}\nRelease: ${release.time.releaseTime}`)
       synthRef.current.envelope.set({
         attack: attack.time.attackTime,
         attackCurve: attack.curve.attackCurve,
