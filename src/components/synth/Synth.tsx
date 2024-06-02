@@ -23,15 +23,26 @@ const SynthProvider: React.FC<SynthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (synthRef.current) {
       console.log(`Attack: ${attack.time.attackTime}\nDecay: ${decay.time.decayTime}\nSustain: ${sustain.amount.sustainAmount}\nRelease: ${release.time.releaseTime}`)
-      synthRef.current.envelope.set({
-        attack: attack.time.attackTime,
-        attackCurve: attack.curve.attackCurve,
-        decay: decay.time.decayTime,
-        decayCurve: decay.curve.decayCurve as BasicEnvelopeCurve,
-        sustain: sustain.amount.sustainAmount,
-        release: release.time.releaseTime,
-        releaseCurve: release.curve.releaseCurve
+      synthRef.current.set({
+        envelope: {
+          attack: attack.time.attackTime,
+          attackCurve: attack.curve.attackCurve,
+          decay: decay.time.decayTime,
+          decayCurve: decay.curve.decayCurve as BasicEnvelopeCurve,
+          sustain: sustain.amount.sustainAmount,
+          release: release.time.releaseTime,
+          releaseCurve: release.curve.releaseCurve
+        }
       })
+      // synthRef.current.envelope.set({
+      //   attack: attack.time.attackTime,
+      //   attackCurve: attack.curve.attackCurve,
+      //   decay: decay.time.decayTime,
+      //   decayCurve: decay.curve.decayCurve as BasicEnvelopeCurve,
+      //   sustain: sustain.amount.sustainAmount,
+      //   release: release.time.releaseTime,
+      //   releaseCurve: release.curve.releaseCurve
+      // })
     }
   }, [attack, decay, sustain, release])
 
