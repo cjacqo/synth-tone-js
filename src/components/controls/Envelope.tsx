@@ -1,7 +1,8 @@
 import React from 'react'
 import Select from '../inputs/Select'
 import { EnvelopeCurve } from '../../options/options'
-import ADSR from './ADSR';
+// import ADSR from './ADSR'
+import ADSR from './ADSR'
 
 interface EnvelopeParams {
   attack: {
@@ -57,7 +58,7 @@ const Envelope: React.FC<EnvelopeProps> = ({ envelope }) => {
       <Select.Number
         label='Release'
         value={Math.round(release.time.releaseTime * 100) / 100}
-        min={0} max={20} step={0.01}
+        min={0.15} max={20} step={0.01}
         onChange={e => release.time.setReleaseTime(parseFloat(e.target.value))} />
     </>
   )

@@ -13,7 +13,7 @@ function useADSR() {
   const { value: sustainAmount, setRangeValue: setSustainAmount } = useNormalizedRange(1)
 
   // Release Params: Time (secs) and Curve
-  const { number: releaseTime, setNumberValue: setReleaseTime } = useNumber(5, 0, 20)
+  const { number: releaseTime, setNumberValue: setReleaseTime } = useNumber(5, 0.15, 20)
   const { curve: releaseCurve, setCurveType: setReleaseCurve } = useCurve()
 
   return {
