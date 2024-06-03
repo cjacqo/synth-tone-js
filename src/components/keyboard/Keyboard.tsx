@@ -26,7 +26,6 @@ const Keyboard: React.FC = () => {
     return ((...args: Parameters<T>) => {
       clearTimeout(timeout)
       timeout = setTimeout(() => func(...args), delay)
-      Tone.Transport.cancel()
     }) as T
   }
 
@@ -44,6 +43,7 @@ const Keyboard: React.FC = () => {
 
   const releaseNote = () => {
     synth.triggerRelease()
+    Tone.Transport.cancel()
   }
 
   keyboard.down(triggerNote)
