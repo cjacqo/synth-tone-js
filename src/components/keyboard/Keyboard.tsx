@@ -59,6 +59,13 @@ const Keyboard: React.FC = () => {
     })
   }
 
+  // Prevent default action of the 48 key (') from opening the finder in browser
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '\'') {
+      e.preventDefault()
+    }
+  })
+
   return (
     <>
       <div className='keyboard'>
@@ -72,7 +79,7 @@ const Keyboard: React.FC = () => {
           value={0}
           numTicks={125} /> */}
       </div>
-      <Knob />
+      <Knob label='Volume' />
     </>
   )
 }

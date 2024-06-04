@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+interface KnobProps {
+  label: string;
+}
+
 const width = 200
 const height = 200
 const centerX = width / 2
@@ -7,7 +11,7 @@ const centerY = height / 2
 const radius = 80
 const pointerLength = 60
 
-const Knob: React.FC = () => {
+const Knob: React.FC<KnobProps> = ({ label }) => {
   // Set a ref for the canvas element and the context
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -139,7 +143,7 @@ const Knob: React.FC = () => {
   return (
     <>
       <canvas ref={canvasRef} width={width} height={height} />
-      <p>Volume:&nbsp;{currentPercentage}%</p>
+      <p>{label}:&nbsp;{currentPercentage}%</p>
     </>
   )
 }
