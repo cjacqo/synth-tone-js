@@ -47,6 +47,9 @@
 .flex {
   display: flex;
 }
+.jc-se {
+  justify-content: space-evenly;
+}
 .ac {
   align-items: center;
 }

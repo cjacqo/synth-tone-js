@@ -60,16 +60,20 @@ const Keyboard: React.FC = () => {
   }
 
   return (
-    <div className='keyboard'>
-      {renderKeys()}
-      {/* <Knob
-        degrees={180}
-        size={150}
-        min={1}
-        max={100}
-        value={0}
-        numTicks={125} /> */}
-    </div>
+    <>
+      <div className='keyboard'>
+        {renderKeys()}
+        
+        {/* <Knob
+          degrees={180}
+          size={150}
+          min={1}
+          max={100}
+          value={0}
+          numTicks={125} /> */}
+      </div>
+      <Knob />
+    </>
   )
 }
 
